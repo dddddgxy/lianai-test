@@ -183,6 +183,7 @@
         state.code = code;
         state.quota = r;
         input.value = CODES.format(code);
+        renderQuota();
         route();
       }).catch(function (e) {
         busy(false);
@@ -905,6 +906,14 @@
     bindPoster();
 
     state.code = savedCode();
+
+    /* 分享链接（?figure=xxx）：别人没输过密码也能直接看结果，
+       这条路径不消耗任何次数，也不写数据库 */
+    var sharedFid = new URLSearchParams(location.search).get('figure');
+    if (sharedFid && FIGS[sharedFid]) {
+      route();
+      return;
+    }
 
     if (!state.code) {
       showView('gate');
