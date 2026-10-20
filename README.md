@@ -4,6 +4,22 @@
 后端用 **Supabase**（数据库 + 管理员登录），前端纯静态，可部署到
 GitHub Pages / Vercel / Netlify。
 
+## 已上线
+
+- 线上地址：**https://dddddgxy.github.io/lianai-test/**
+- 仓库：https://github.com/dddddgxy/lianai-test
+
+## 离线模式（未接 Supabase 也能用）
+
+不配置 Supabase 时站点自动进入离线模式：
+
+- 密码仍然有效——密码自带校验位（`codes.js`），任何设备离线可验；
+- 每码 3 次的限制**记录在这台设备的浏览器里**，换设备/清缓存会重置；
+- 密码门下方会有一行小字提示「离线模式」；
+- 管理后台（admin.html）仍需 Supabase，离线时无法管理密码。
+
+接入 Supabase 后无需改任何代码，自动切回数据库计数。
+
 ## 玩法
 
 - **密码门**：打开即要求输入邀请密码（`LA-XXXX-XXXX-XXX`），数据库验证通过才能进入。
@@ -133,3 +149,14 @@ schema.sql 第 9 节有注释掉的测试密码，取消注释执行即可，例
 - 免责声明固定显示于页面底部：
   「本测试为娱乐内容，人物匹配仅为性格与关系隐喻，不构成历史评价；
   所有关系场景均以尊重、平等、健康为前提。」
+
+## 更新网站内容
+
+改完文件后两种方式发布（推送后 Pages 约 1 分钟自动重新构建）：
+
+1. **开代理后 git 推送**（本机 git 已配置 github.com 走 socks5://127.0.0.1:7890，代理开着即可）：
+   ```
+   git add -A && git commit -m "update" && git push
+   ```
+2. **不走 git、直接调 GitHub API**（api.github.com 通常无需代理）：
+   用任意 Contents API（`PUT /repos/dddddgxy/lianai-test/contents/<文件路径>`）上传单个文件。
