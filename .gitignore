@@ -9,3 +9,6 @@ _q.json
 _shot-*.png
 _shot*.png
 ADMIN-ACCOUNT.md
+_export-test.xlsx
+_selftest.json
+_shot-dbg.png
