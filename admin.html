@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4ecdb">
+<meta name="robots" content="noindex,nofollow">
+<title>密码管理 · 恋爱人格测试</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-wrap">
+
+  <header class="admin-head">
+    <p class="eyebrow">恋爱人格测试 · 后台</p>
+    <h1>邀请密码管理</h1>
+    <p class="admin-sub">密码和测试结果都存在 Supabase 里，换设备、清缓存都不会丢。</p>
+  </header>
+
+  <!-- 登录 -->
+  <section id="admin-login" class="card card--login">
+    <div class="field">
+      <label class="field-label" for="admin-email">管理员邮箱</label>
+      <input id="admin-email" class="input" type="email" placeholder="you@example.com"
+             autocomplete="username" spellcheck="false">
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label class="field-label" for="admin-pass">密码</label>
+      <div class="row row--tight">
+        <input id="admin-pass" class="input" type="password" placeholder="Supabase 账号密码"
+               autocomplete="current-password">
+        <button id="admin-login-btn" class="btn-primary btn-inline" type="button">进入</button>
+      </div>
+    </div>
+    <p id="admin-login-err" class="err" hidden></p>
+    <p class="hint">
+      账号在 Supabase 后台 <code>Authentication → Users</code> 创建，
+      邮箱还要写进 <code>admins</code> 表才有权限（见 <code>supabase/schema.sql</code> 第 8 节）。
+    </p>
+  </section>
+
+  <!-- 面板 -->
+  <main id="admin-panel" hidden>
+
+    <div class="admin-bar">
+      <span id="admin-who" class="admin-who"></span>
+      <span class="admin-bar-actions">
+        <button id="btn-reload" class="btn-ghost btn-sm" type="button">刷新</button>
+        <button id="btn-logout" class="btn-ghost btn-sm" type="button">退出登录</button>
+      </span>
+    </div>
+
+    <section class="card">
+      <h2 class="card-title">生成密码</h2>
+      <div class="row">
+        <div class="field">
+          <label class="field-label" for="gen-count">数量</label>
+          <input id="gen-count" class="input" type="number" value="20" min="1" max="200">
+        </div>
+        <div class="field">
+          <label class="field-label" for="gen-uses">每个可测</label>
+          <input id="gen-uses" class="input" type="number" value="3" min="1" max="99">
+        </div>
+        <div class="field field--grow">
+          <label class="field-label" for="gen-batch">批次备注（可空）</label>
+          <input id="gen-batch" class="input" type="text" placeholder="例如：十月小红书 / 老客户">
+        </div>
+        <button id="gen-btn" class="btn-primary btn-inline" type="button">生成</button>
+      </div>
+      <p class="hint">
+        密码格式 <code>LA-XXXX-XXXX-XXX</code>。生成后写入数据库并自动复制，
+        每用一次 <code>used_count</code> 加一，用满 <code>max_uses</code> 次即失效，不会超发。
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <div class="toolbar-stat" id="stat">共 0 条</div>
+        <div class="toolbar-actions">
+          <button id="copy-all" class="btn-ghost btn-sm" type="button">复制未用完的</button>
+          <button id="export-xlsx" class="btn-primary btn-sm" type="button">导出 Excel</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="code-table">
+          <thead>
+            <tr>
+              <th class="col-no">#</th>
+              <th>密码</th>
+              <th>批次</th>
+              <th class="col-use">已用 / 上限</th>
+              <th class="col-use">剩余</th>
+              <th>生成时间</th>
+              <th class="col-act">操作</th>
+            </tr>
+          </thead>
+          <tbody id="code-tbody"></tbody>
+        </table>
+        <p id="empty-tip" class="empty-tip">还没有生成过密码。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">最近测试结果 <small id="result-count"></small></h2>
+      <div class="table-wrap">
+        <table class="code-table">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>入口</th>
+              <th>人格</th>
+              <th>人物</th>
+              <th class="col-use">相似度</th>
+              <th>密码</th>
+            </tr>
+          </thead>
+          <tbody id="result-tbody"></tbody>
+        </table>
+        <p id="result-empty" class="empty-tip">还没有人测过。</p>
+      </div>
+      <p class="hint">
+        这里只记结果类型和匹配人物，不记任何身份信息。
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">查一个密码</h2>
+      <div class="row row--tight">
+        <input id="check-input" class="input" type="text" placeholder="粘贴一个密码，例如 LA-ABCD-EFGH-JKL">
+        <button id="check-btn" class="btn-ghost btn-inline" type="button">查</button>
+      </div>
+      <p id="check-result" class="check-result"></p>
+    </section>
+
+    <p class="admin-foot">
+      次数由数据库的原子更新控制：<code>UPDATE … WHERE used_count &lt; max_uses</code>
+      在行上加锁，两台设备同时提交也不会多发一次。
+    </p>
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/backend.js"></script>
+<script src="assets/js/codes.js"></script>
+<script src="assets/js/xlsx.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

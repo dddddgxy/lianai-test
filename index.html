@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4ecdb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%239c3a2c'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23f4ecdb' font-family='serif'%3E姻%3C/text%3E%3C/svg%3E">
+<title>测测你最适合跟哪位历史人物谈恋爱</title>
+<meta name="description" content="二十道生活化选择题，换一个古人的眼睛看你。9 种恋爱人格，64 位正面历史人物，2 分钟出结果。">
+<meta property="og:title" content="测测你最适合跟哪位历史人物谈恋爱">
+<meta property="og:description" content="二十道生活化选择题，换一个古人的眼睛看你。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ 密码门 ============ -->
+  <section id="view-gate" class="view view--gate" hidden>
+    <div class="gate-card">
+      <span class="seal gate-seal" aria-hidden="true">准入</span>
+      <p class="eyebrow">私人小测 · 凭密码进入</p>
+      <h1 class="gate-title">先输一个密码</h1>
+      <p class="gate-sub">
+        这是一个需要邀请密码的小测试。<br>
+        密码由发起人给你，一个密码可以测 <b id="gate-max">3</b> 次，用完即止。
+      </p>
+
+      <div class="gate-form">
+        <input id="gate-input" class="gate-input" type="text" inputmode="text"
+               autocomplete="off" autocapitalize="characters" spellcheck="false"
+               placeholder="LA-XXXX-XXXX-XXX" maxlength="20">
+        <button id="gate-btn" class="btn-primary" type="button">进入测试</button>
+      </div>
+
+      <p id="gate-error" class="gate-error" hidden></p>
+
+      <p class="gate-foot">
+        没有密码？找发链接给你的人 ·
+        <a href="admin.html">管理员入口</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 首页 ============ -->
+  <section id="view-home" class="view view--home">
+    <div class="home-top">
+      <span class="eyebrow">娱乐小测 · 古人也恋爱</span>
+      <span class="seal" aria-hidden="true">姻缘</span>
+    </div>
+
+    <h1 class="home-title">
+      <span class="hl-1">测测你最适合</span>
+      <span class="hl-2">跟哪位历史人物</span>
+      <span class="hl-3"><em>谈恋爱</em></span>
+    </h1>
+
+    <p class="home-sub">
+      二十道生活化选择题，不考历史，只问你平时怎么爱人。<br>
+      换一个古人的眼睛，看看你的恋爱人格。
+    </p>
+
+    <div class="entry-list">
+      <button class="entry entry--female" data-entry="female" type="button">
+        <span class="entry-no">壹</span>
+        <span class="entry-body">
+          <span class="entry-kicker">女生入口</span>
+          <span class="entry-title">你适合被哪位古人认真喜欢</span>
+          <span class="entry-hint"><b data-count="female">41</b> 位人物 · 9 种恋爱人格</span>
+        </span>
+        <span class="entry-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <button class="entry entry--male" data-entry="male" type="button">
+        <span class="entry-no">贰</span>
+        <span class="entry-body">
+          <span class="entry-kicker">男生入口</span>
+          <span class="entry-title">你适合和哪位古人并肩恋爱</span>
+          <span class="entry-hint"><b data-count="male">23</b> 位人物 · 8 种恋爱人格</span>
+        </span>
+        <span class="entry-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+
+    <p id="home-quota" class="home-quota" hidden>
+      这个密码还能测 <b id="home-remain">3</b> 次<button id="btn-switch-code" class="quota-link" type="button">换一个密码</button>
+    </p>
+
+    <p class="home-note">全程约 2 分钟 · 不用注册 · 不收集任何个人信息</p>
+
+    <div class="home-rule" aria-hidden="true">
+      <i></i><span>以古为镜，照见自己</span><i></i>
+    </div>
+  </section>
+
+  <!-- ============ 测试页 ============ -->
+  <section id="view-quiz" class="view view--quiz" hidden>
+    <header class="quiz-head">
+      <button id="btn-quit" class="ghost-btn" type="button">退出</button>
+      <span id="quiz-count" class="quiz-count">01 / 20</span>
+      <span id="quiz-tag" class="quiz-tag">女生入口</span>
+    </header>
+
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <i id="progress-fill"></i>
+    </div>
+
+    <div class="q-card">
+      <p id="q-index" class="q-index">第 1 题</p>
+      <h2 id="q-text" class="q-text"></h2>
+      <div id="q-options" class="q-options"></div>
+    </div>
+
+    <button id="btn-back" class="ghost-btn ghost-btn--back" type="button">← 上一题</button>
+  </section>
+
+  <!-- ============ 结果页 ============ -->
+  <section id="view-result" class="view view--result" hidden>
+    <div id="result-root"></div>
+  </section>
+
+</div>
+
+<footer class="disclaimer">
+  <p>本测试为娱乐内容，人物匹配仅为性格与关系隐喻，不构成历史评价；所有关系场景均以尊重、平等、健康为前提。</p>
+</footer>
+
+<!-- 结果海报 -->
+<div id="poster-modal" class="poster-modal" hidden>
+  <div class="poster-panel">
+    <div class="poster-head">
+      <span>结果海报</span>
+      <button id="poster-close" class="poster-x" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="poster-scroll">
+      <img id="poster-img" alt="恋爱人格结果海报">
+    </div>
+    <div class="poster-actions">
+      <a id="poster-download" class="btn-primary" download="恋爱人格结果.png">保存到相册</a>
+      <button id="poster-close2" class="btn-ghost" type="button">关闭</button>
+    </div>
+    <p class="poster-tip">手机上长按图片也能直接保存 · 电脑点「保存到相册」</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/backend.js"></script>
+<script src="assets/js/data-figures.js"></script>
+<script src="assets/js/data-questions.js"></script>
+<script src="assets/js/data-insights.js"></script>
+<script src="assets/js/codes.js"></script>
+<script src="assets/js/poster.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

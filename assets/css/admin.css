@@ -1,0 +1,295 @@
+/* =========================================================
+   后台管理页样式（复用 style.css 的变量与按钮）
+   ========================================================= */
+
+.admin-body {
+  padding-bottom: 40px;
+  background-image: radial-gradient(90% 60% at 50% -8%, #fdfaf1 0%, #f5ecd8 40%, #e8d9bd 100%);
+}
+
+.admin-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 34px 18px 20px;
+}
+
+.admin-head { margin-bottom: 22px; }
+
+.admin-head h1 {
+  margin: 8px 0 8px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+.admin-sub {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--ink-2);
+}
+
+.card {
+  position: relative;
+  padding: 22px 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(255, 253, 246, .96), rgba(249, 241, 226, .96));
+  box-shadow: 0 10px 26px rgba(84, 56, 24, .07);
+}
+
+.card--login { max-width: 460px; }
+
+.card-title {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .22em;
+  color: var(--gold);
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.row--tight { align-items: stretch; gap: 8px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 110px; }
+
+.field--grow { flex: 1 1 200px; }
+
+.field-label {
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  color: var(--ink-3);
+}
+
+.input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  padding: 11px 12px;
+  border: 1px solid rgba(167, 137, 79, .4);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .72);
+  outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.input:focus {
+  border-color: rgba(156, 58, 44, .5);
+  box-shadow: 0 0 0 3px rgba(156, 58, 44, .07);
+}
+
+.btn-inline { flex: 0 0 auto; width: auto; padding: 11px 22px; font-size: 14px; }
+
+.btn-sm {
+  flex: 0 0 auto;
+  width: auto;
+  padding: 9px 14px;
+  font-size: 12.5px;
+  letter-spacing: .06em;
+}
+
+.btn-danger { color: var(--cinnabar); border-color: rgba(156, 58, 44, .3); }
+
+.hint {
+  margin: 14px 0 0;
+  font-size: 11.5px;
+  line-height: 1.85;
+  color: var(--ink-3);
+}
+
+.hint code {
+  font-family: Consolas, Menlo, monospace;
+  font-size: 11px;
+  padding: 1px 4px;
+  background: rgba(167, 137, 79, .13);
+  border-radius: 2px;
+}
+
+.err {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--cinnabar);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.toolbar-stat {
+  font-size: 12px;
+  letter-spacing: .12em;
+  color: var(--ink-3);
+}
+
+.toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.toolbar-actions button { flex: 0 0 auto; }
+
+.table-wrap {
+  max-height: 460px;
+  overflow: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .5);
+}
+
+.code-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.code-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: .16em;
+  color: var(--ink-3);
+  padding: 10px 12px;
+  background: #f7eeda;
+  border-bottom: 1px solid var(--line);
+}
+
+.code-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink-2);
+  vertical-align: middle;
+}
+
+.code-table tr:last-child td { border-bottom: 0; }
+
+.code-table .mono {
+  font-family: Consolas, Menlo, monospace;
+  font-size: 13.5px;
+  letter-spacing: .06em;
+  color: var(--ink);
+}
+
+.col-no { width: 44px; }
+.col-act { width: 186px; }
+.col-use { width: 84px; white-space: nowrap; }
+
+/* ---- 顶部登录信息 ---- */
+
+.admin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 0 2px;
+}
+
+.admin-who {
+  font-size: 11.5px;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+}
+
+.admin-bar-actions { display: flex; gap: 8px; }
+.admin-bar-actions button { flex: 0 0 auto; }
+
+/* ---- 剩余次数徽章 ---- */
+
+.badge {
+  display: inline-block;
+  min-width: 22px;
+  padding: 2px 7px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 11.5px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.badge--new { color: #3f6b4f; background: rgba(63, 107, 79, .1); border-color: rgba(63, 107, 79, .22); }
+.badge--part { color: var(--gold); background: rgba(167, 137, 79, .14); border-color: rgba(167, 137, 79, .3); }
+.badge--done { color: var(--ink-3); background: rgba(120, 108, 92, .1); border-color: rgba(120, 108, 92, .2); }
+.badge--off { color: var(--cinnabar); background: rgba(156, 58, 44, .08); border-color: rgba(156, 58, 44, .22); }
+
+.mini-btn + .mini-btn { margin-left: 5px; }
+
+.mini-btn--ghost {
+  color: var(--ink-2);
+  border-color: rgba(120, 108, 92, .28);
+}
+
+.mini-btn--danger {
+  color: var(--ink-3);
+  border-color: rgba(120, 108, 92, .22);
+  padding: 4px 7px;
+}
+
+.mini-btn--danger:hover { color: var(--cinnabar); border-color: rgba(156, 58, 44, .4); }
+
+.mini-btn {
+  font-family: inherit;
+  font-size: 11.5px;
+  color: var(--cinnabar);
+  background: none;
+  border: 1px solid rgba(156, 58, 44, .28);
+  border-radius: 2px;
+  padding: 4px 9px;
+  cursor: pointer;
+}
+
+.empty-tip {
+  margin: 0;
+  padding: 26px 12px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.check-result {
+  margin: 12px 0 0;
+  font-size: 13px;
+  min-height: 20px;
+  color: var(--ink-2);
+}
+
+.check-result.ok { color: #3f6b4f; }
+.check-result.bad { color: var(--cinnabar); }
+
+.admin-foot {
+  margin: 8px 0 0;
+  padding: 14px 4px;
+  font-size: 11.5px;
+  line-height: 1.9;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .admin-wrap { padding-top: 22px; }
+  .admin-head h1 { font-size: 24px; }
+  .card { padding: 18px 14px; }
+  .row { gap: 8px; }
+  .field { flex: 1 1 100%; }
+  .btn-inline { width: 100%; }
+  .toolbar { align-items: flex-start; }
+  .table-wrap { overflow-x: auto; }
+  .code-table { min-width: 600px; }
+  .code-table th:nth-child(6),
+  .code-table td:nth-child(6) { display: none; }
+}
