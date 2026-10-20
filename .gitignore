@@ -3,3 +3,9 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# 本地临时文件
+_q.json
+_shot-*.png
+_shot*.png
+ADMIN-ACCOUNT.md

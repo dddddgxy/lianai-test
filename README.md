@@ -43,29 +43,27 @@ GitHub Pages / Vercel / Netlify。
 - 每次出结果会在 `quiz_results` 表记一条匿名数据
   （入口 / 人格 / 人物 / 相似度 / 六维向量），**不记任何身份信息**。
 
-## 部署前必做（5 步，约 5 分钟）
+## 数据库（已接好，无需再配置）
 
-1. 到 [supabase.com](https://supabase.com) 新建项目（免费版够用）。
-2. 左侧 **SQL Editor** → New query → 把 `supabase/schema.sql` 全文粘贴 → Run。
-   会建好 3 张表、2 个数据库函数和行级权限。
-3. **创建管理员账号**：左侧 **Authentication → Users → Add user**，
-   填邮箱 + 密码（勾选 Auto Confirm User）。
-4. 把该邮箱写进管理员名单：SQL Editor 执行
-   ```sql
-   insert into public.admins (email) values ('你的邮箱') on conflict do nothing;
-   ```
-5. **Project Settings → API** 复制 Project URL 和 anon public key，
-   填进 `assets/js/config.js`：
-   ```js
-   var SUPABASE_URL = 'https://xxxxxxxx.supabase.co';
-   var SUPABASE_ANON_KEY = 'eyJhbGciOi…';
-   ```
+后端已经建好并接通，`assets/js/config.js` 里填的是真实项目：
 
-完成。前台输密码即可测，后台用管理员邮箱登录。
+| 项 | 值 |
+| --- | --- |
+| Supabase 项目 | `pkaoslpmzitiazxestdz`（东京 ap-northeast-1） |
+| 项目 URL | `https://pkaoslpmzitiazxestdz.supabase.co` |
+| 数据表 | `admins` / `invite_codes` / `quiz_results` |
+| 数据库函数 | `check_invite_code`（只查不扣）、`consume_invite_code`（原子扣次 + 落结果）、`is_admin` |
+| 行级权限 | 匿名访客只能调这两个函数，读不到密码表；管理员登录后可读写 |
 
-### 本地测试密码（可选）
+换到自己的 Supabase 项目时，只要三步：
 
-schema.sql 第 9 节有注释掉的测试密码，取消注释执行即可，例如 `LA-TEST-TEST-M42`。
+1. SQL Editor 里跑一遍 `supabase/schema.sql`（可重复执行，不会清数据）。
+2. Authentication → Users 建一个邮箱 + 密码（勾选 Auto Confirm），
+   再 `insert into public.admins (email) values ('你的邮箱');`。
+3. 把 Project URL 和 anon public key 填进 `assets/js/config.js`。
+
+> anon key 放在前端是 Supabase 的标准用法，真正的权限由 RLS 控制；
+> `service_role` key 绝对不要写进前端。
 
 ## 后台（admin.html）
 

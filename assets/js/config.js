@@ -14,8 +14,8 @@ window.LA_CONFIG = (function () {
   'use strict';
 
   /* ↓↓↓ 只需要改这两行 ↓↓↓ */
-  var SUPABASE_URL = 'YOUR_SUPABASE_URL';        /* 形如 https://abcdefgh.supabase.co */
-  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  var SUPABASE_URL = 'https://pkaoslpmzitiazxestdz.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrYW9zbHBteml0aWF6eGVzdGR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0ODIxNTAsImV4cCI6MjEwODA1ODE1MH0.f5XOL5PGmHAl_n2xipMLlRSn_iSF7cJCSGLRqO_KTR0';
 
   /* 每个密码默认可用次数（后台生成时可以单独指定，这里是批量生成的默认值） */
   var DEFAULT_MAX_USES = 3;
